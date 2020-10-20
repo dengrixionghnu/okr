@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.sean.okr.infrastructure.gatewayImpl.database.mapper.KeyResultMapper" >
+  <resultMap id="BaseResultMap" type="org.sean.okr.infrastructure.gatewayImpl.database.DO.KeyResult" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="desc" property="desc" jdbcType="VARCHAR" />
+    <result column="unit" property="unit" jdbcType="VARCHAR" />
+    <result column="start_value" property="startValue" jdbcType="DOUBLE" />
+    <result column="end_value" property="endValue" jdbcType="DOUBLE" />
+    <result column="value" property="value" jdbcType="DOUBLE" />
+    <result column="confidence" property="confidence" jdbcType="DOUBLE" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="progress" property="progress" jdbcType="DOUBLE" />
+    <result column="owner" property="owner" jdbcType="VARCHAR" />
+    <result column="object" property="object" jdbcType="BIGINT" />
+    <result column="weight" property="weight" jdbcType="DOUBLE" />
+    <result column="created_time" property="createdTime" jdbcType="DATE" />
+    <result column="updated_time" property="updatedTime" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, name, desc, unit, start_value, end_value, value, confidence, status, progress, 
+    owner, object, weight, created_time, updated_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.sean.okr.infrastructure.gatewayImpl.database.DO.KeyResultExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from key_result
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from key_result
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from key_result
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="org.sean.okr.infrastructure.gatewayImpl.database.DO.KeyResult" >
+    insert into key_result (id, name, desc, 
+      unit, start_value, end_value, 
+      value, confidence, status, 
+      progress, owner, object, 
+      weight, created_time, updated_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR}, 
+      #{unit,jdbcType=VARCHAR}, #{startValue,jdbcType=DOUBLE}, #{endValue,jdbcType=DOUBLE}, 
+      #{value,jdbcType=DOUBLE}, #{confidence,jdbcType=DOUBLE}, #{status,jdbcType=VARCHAR}, 
+      #{progress,jdbcType=DOUBLE}, #{owner,jdbcType=VARCHAR}, #{object,jdbcType=BIGINT}, 
+      #{weight,jdbcType=DOUBLE}, #{createdTime,jdbcType=DATE}, #{updatedTime,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.sean.okr.infrastructure.gatewayImpl.database.DO.KeyResult" >
+    insert into key_result
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="desc != null" >
+        desc,
+      </if>
+      <if test="unit != null" >
+        unit,
+      </if>
+      <if test="startValue != null" >
+        start_value,
+      </if>
+      <if test="endValue != null" >
+        end_value,
+      </if>
+      <if test="value != null" >
+        value,
+      </if>
+      <if test="confidence != null" >
+        confidence,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="progress != null" >
+        progress,
+      </if>
+      <if test="owner != null" >
+        owner,
+      </if>
+      <if test="object != null" >
+        object,
+      </if>
+      <if test="weight != null" >
+        weight,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="updatedTime != null" >
+        updated_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="desc != null" >
+        #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null" >
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="startValue != null" >
+        #{startValue,jdbcType=DOUBLE},
+      </if>
+      <if test="endValue != null" >
+        #{endValue,jdbcType=DOUBLE},
+      </if>
+      <if test="value != null" >
+        #{value,jdbcType=DOUBLE},
+      </if>
+      <if test="confidence != null" >
+        #{confidence,jdbcType=DOUBLE},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="progress != null" >
+        #{progress,jdbcType=DOUBLE},
+      </if>
+      <if test="owner != null" >
+        #{owner,jdbcType=VARCHAR},
+      </if>
+      <if test="object != null" >
+        #{object,jdbcType=BIGINT},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=DATE},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.sean.okr.infrastructure.gatewayImpl.database.DO.KeyResult" >
+    update key_result
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="desc != null" >
+        desc = #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null" >
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="startValue != null" >
+        start_value = #{startValue,jdbcType=DOUBLE},
+      </if>
+      <if test="endValue != null" >
+        end_value = #{endValue,jdbcType=DOUBLE},
+      </if>
+      <if test="value != null" >
+        value = #{value,jdbcType=DOUBLE},
+      </if>
+      <if test="confidence != null" >
+        confidence = #{confidence,jdbcType=DOUBLE},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="progress != null" >
+        progress = #{progress,jdbcType=DOUBLE},
+      </if>
+      <if test="owner != null" >
+        owner = #{owner,jdbcType=VARCHAR},
+      </if>
+      <if test="object != null" >
+        object = #{object,jdbcType=BIGINT},
+      </if>
+      <if test="weight != null" >
+        weight = #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=DATE},
+      </if>
+      <if test="updatedTime != null" >
+        updated_time = #{updatedTime,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.sean.okr.infrastructure.gatewayImpl.database.DO.KeyResult" >
+    update key_result
+    set name = #{name,jdbcType=VARCHAR},
+      desc = #{desc,jdbcType=VARCHAR},
+      unit = #{unit,jdbcType=VARCHAR},
+      start_value = #{startValue,jdbcType=DOUBLE},
+      end_value = #{endValue,jdbcType=DOUBLE},
+      value = #{value,jdbcType=DOUBLE},
+      confidence = #{confidence,jdbcType=DOUBLE},
+      status = #{status,jdbcType=VARCHAR},
+      progress = #{progress,jdbcType=DOUBLE},
+      owner = #{owner,jdbcType=VARCHAR},
+      object = #{object,jdbcType=BIGINT},
+      weight = #{weight,jdbcType=DOUBLE},
+      created_time = #{createdTime,jdbcType=DATE},
+      updated_time = #{updatedTime,jdbcType=DATE}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
